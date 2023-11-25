@@ -1,2 +1,2 @@
-# dropbox-clone-service
+# HR-portal-service
 Node.js repository for backend service for HR portal application build on aws
