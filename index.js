@@ -276,7 +276,7 @@ app.get('/employee/:emp_no',
           if(req?.params?.emp_no) {
             condition = "where emp_no = "+ req?.params?.emp_no;
           }
-          const query = "select e.emp_no, e.birth_date, e.first_name, e.last_name, e.gender, e.hire_date, e.is_admin, s.salary, t.title, d.dept_name, d.dept_no from `HR-portal`.employees e, `HR-portal`.salaries s, `HR-portal`.titles t, `HR-portal`.dept_emp de, `HR-portal`.departments d where s.emp_no = e.emp_no and t.emp_no = e.emp_no and de.emp_no = e.emp_no and d.dept_no = de.dept_no and s.to_date = '9999-01-01' and t.to_date = '9999-01-01' and de.to_date = '9999-01-01' and e.emp_no = " + req?.params?.emp_no ;
+          const query = "select e.emp_no, e.birth_date, e.first_name, e.last_name, e.gender, e.hire_date, e.is_admin, s.salary, t.title, d.dept_name, d.dept_no from `hrm`.employees e, `hrm`.salaries s, `hrm`.titles t, `hrm`.dept_emp de, `hrm`.departments d where s.emp_no = e.emp_no and t.emp_no = e.emp_no and de.emp_no = e.emp_no and d.dept_no = de.dept_no and s.to_date = '9999-01-01' and t.to_date = '9999-01-01' and de.to_date = '9999-01-01' and e.emp_no = " + req?.params?.emp_no ;
 
           con.query(query, function(err, results) {
             if(err) {
@@ -345,7 +345,6 @@ app.get('/employee/:emp_no/salaries',
     (req, res) => {
       
       const emp_no = req.params.emp_no;
-
       const query = "SELECT de.salary, de.from_date, de.to_date from salaries de where emp_no = "+ emp_no;
 
       con.query(query, function(err, results) {
@@ -357,9 +356,8 @@ app.get('/employee/:emp_no/salaries',
 
 app.get('/employee/:emp_no/titles', 
     (req, res) => {
-      
-      const emp_no = req.params.emp_no;
 
+      const emp_no = req.params.emp_no;
       const query = "SELECT de.title, de.from_date, de.to_date from titles de where emp_no = "+ emp_no;
 
       con.query(query, function(err, results) {
@@ -368,3 +366,4 @@ app.get('/employee/:emp_no/titles',
         } else return res.status(200).json({ body: results });});
       }
 );
+
